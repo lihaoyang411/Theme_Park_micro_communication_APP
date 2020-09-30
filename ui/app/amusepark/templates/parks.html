@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Parks</title>
+{% endblock %}
+
+{% block body %}
+{% include 'header.html' %}
+<main role="main">
+
+  <div class="album py-5 bg-light">
+
+    <div class="container" style="margin-top:30px">
+
+      <div class="row">
+        {% for park in parks %}
+        <div class="col-md-12">
+          <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">                  
+            <div class="card-body">
+              <a href="/parks/{{park.id}}/posts" class="navbar-brand d-flex align-items-center"><strong>{{ park.name }}</strong></a>
+              <p class="card-text">{{ park.description }}</p>
+              <p class="card-text">{{ park.user.name }}</p>
+
+              {% if park.id in park_subscription_map %}
+                <form method="POST"  action="/subscriptions/delete">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <input type="hidden" name="user_id" value="{{user.id}}"/>
+                        <input type="hidden" name="subscription_id" id="subscription_id" value="{{park_subscription_map[park.id]}}"/>
+                      <div class="btn-group">
+                        <button type="submit" class="btn btn-sm btn-outline-secondary">Unsubscribe</button>
+                      </div>
+                    </div>
+                </form>
+              {% else %}
+                <form method="POST"  action="/subscriptions/create">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <input type="hidden" name="park_id" id="park_id" value="{{ park.id }}"/>
+                    <input type="hidden" name="user_id" value="{{user.id}}"/>
+                    <div class="btn-group">
+                      <button type="submit" class="btn btn-sm btn-outline-secondary">Subscribe</button>
+                    </div>
+                  </div>
+                </form>
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-auto d-none d-lg-block">
+            <img src="{{park.image_id}}" style="background-color:#55595c;" width="300" height="300" alt="">
+          </div>
+        </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% include 'pager.html' %}
+</main>
+{% endblock %}

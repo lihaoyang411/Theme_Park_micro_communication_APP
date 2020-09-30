@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>New Report</title>
+{% endblock %}
+
+{% block body %}
+{% include 'map.html' %}
+{% include 'header.html' %}
+<br>
+<div class="container" style="margin-top:50px">
+  <div class="jumbotron p-4 p-md-5 text-white bg-dark">
+    <div class="col-md-12 px-0">
+
+      <div class="row">
+
+        <div class="col-md-4">
+          <h1 class="display-4">{{ park.name }}</h1>
+          <p class="lead my-3">{{ park.description }}</p>
+          <p class="card-text">{{ park.user.name }}</p>
+        </div>
+
+        <div class="col-md-4">
+          <img src="{{park.image_id}}" width="300" height="300" alt="">
+        </div>
+
+        <div class="col-md-4">
+          <div id="map"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+<div class="jambotran">
+      <h2 class="py-3">Create new Post</h2>
+      <div class="form bg-white p-2">
+        <form method="POST"  action="/posts/create" enctype="multipart/form-data">
+            <!-- Somehow make the user object reach here -->
+            <input type="hidden" name="park_id" id="park_id" value="{{ park.id }}"/>
+            <input type="hidden" name="user_id" value="{{user.id}}"/>
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input type="text" class="form-control" id="title"  placeholder="Enter Post Title" name="title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" rows="3" name="description" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="tags">Tags</label>
+                <input type="text" class="form-control" id="tags"  placeholder="Enter comma separated tag" name="tags" required>
+            </div>
+            <div class="form-group">
+                <label for="lat">Latitude</label>
+                <input type="text" class="form-control" id="lat"  placeholder="1.0" name="lat" required>
+            </div>
+            <div class="form-group">
+                <label for="lng">Longitude</label>
+                <input type="text" class="form-control" id="lng"  placeholder="1.0" name="lng" required>
+            </div>
+            <div class="form-group">
+                <label for="image">Upload Image</label>
+                <input type="file" id="image" name="image" accept="image/*" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+</div>
+</div>
+{% endblock %}

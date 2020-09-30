@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/ParkFragment">
+
+    <fragment
+        android:id="@+id/ParkFragment"
+        android:name="com.funtech.amusementpark.ParkFragment"
+        android:label="@string/park_fragment_label"
+        tools:layout="@layout/fragment_park">
+
+
+        <action
+            android:id="@+id/action_ParkFragment_to_PostFragment"
+            app:destination="@id/PostFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/PostFragment"
+        android:name="com.funtech.amusementpark.PostFragment"
+        android:label="@string/post_fragment_label"
+        tools:layout="@layout/fragment_post">
+
+        <action
+            android:id="@+id/action_PostFragment_to_CreatePostFragment"
+            app:destination="@id/CreatePostFragment" />
+        <action
+            android:id="@+id/action_PostFragment_to_SinglePostFragment"
+            app:destination="@id/SinglePostFragment" />
+        <action
+            android:id="@+id/action_PostFragment_to_ParkFragment"
+            app:destination="@id/ParkFragment" />
+        <argument
+            android:name="park_id"
+            app:argType="string" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/CreatePostFragment"
+        android:name="com.funtech.amusementpark.CreatePostFragment"
+        android:label="@string/create_post_fragment_label"
+        tools:layout="@layout/fragment_create_post">
+
+        <action
+            android:id="@+id/action_CreatePostFragment_to_PostFragment"
+            app:destination="@id/PostFragment" />
+        <argument
+            android:name="park_id"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/SinglePostFragment"
+        android:name="com.funtech.amusementpark.SinglePostFragment"
+        android:label="@string/single_post_fragment_label"
+        tools:layout="@layout/fragment_single_post">
+
+        <action
+            android:id="@+id/action_SinglePostFragment_to_PostFragment"
+            app:destination="@id/PostFragment" />
+        <argument
+            android:name="post_id"
+            app:argType="string" />
+    </fragment>
+
+</navigation>
